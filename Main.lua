@@ -5,9 +5,13 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 local MainEspManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/leinad2011st/doors-utilites/main/UNNAMEDDOORS/EspManager.lua"))()
-local Functions = loadstring(game:HttpGet("https://"))
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/leinad2011st/GameShowScript-/main/functions.lua"))
 
 local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
+
+
+
+local Esps = {}
 
 
 
@@ -65,3 +69,53 @@ local Window = Library:CreateWindow({
     AutoShow = true,
     TabPadding = 8
 })
+
+
+local Tabs = {
+    Main = Window:AddTab('Main'),
+    Server = Window:AddTab('Server'),
+    Visuals = Window:AddTab('Visuals'),
+}
+
+
+function MakeGroupBox(Name, Left,TabName)
+    if Left then
+        Tabs[TabName]:AddLeftGroupbox(Name)
+    else
+        Tabs[TabName]:AddRightGroupbox(Name)
+    end
+end
+
+
+function initializeMain()
+    
+end
+
+function initializeServer()
+    
+end
+
+function AddEspTop(Name, Text, Left, Defualt, INFO)
+    local GroupBox = MakeGroupBox(Name,Left,"Visuals")
+    GroupBox:AddToggle(Name,{
+        Text = Text,
+        Default = Defualt,
+        Tooltip = '',
+        Callback = function(Value)
+            if Value == true then 
+                local ESPTable = {}
+
+                ESPTable.EspText = INFO["EspText"]
+                ESPTable.EspColor = INFO["EspColor"]
+
+                Esps[Name] = ESPTable
+
+            end
+        end
+    })
+end
+
+function initializeVisuals()
+    AddEspTop("AHHH","wywd",true, false, {["EspText"]="DAM", ["EspColor"] = Color3.fromRGB(255,255,255)})
+end
+
