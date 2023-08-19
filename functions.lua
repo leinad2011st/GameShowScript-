@@ -5,10 +5,10 @@ local MainEspManager = loadstring(game:HttpGet("https://raw.githubusercontent.co
 local Esps = {}
 
 
-function Function:CreateEsp(Item, ItemText, EspTable)
-    if EspTable.EspEnabled then
-        EspManager:AddEsp(Item,EspTable.ESPColor, ItemText, true)
-    end  
+function Function:CreateEsp(Item, EspTable)
+    if  EspTable.EspEnabled then
+        EspManager:AddEsp(Item, EspTable.EspColor, EspTable.EspText, true)
+    -- end  
 end
 
 

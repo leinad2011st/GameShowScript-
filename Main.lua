@@ -79,11 +79,15 @@ local Tabs = {
 
 
 function MakeGroupBox(Name, Left,TabName)
+    local GroupBOXXY
+
     if Left then
-        Tabs[TabName]:AddLeftGroupbox(Name)
+        GroupBOXXY = Tabs[TabName]:AddLeftGroupbox(Name)
     else
-        Tabs[TabName]:AddRightGroupbox(Name)
+        GroupBOXXY = Tabs[TabName]:AddRightGroupbox(Name)
     end
+    
+    return GroupBOXXY
 end
 
 
@@ -95,11 +99,11 @@ function initializeServer()
     
 end
 
-function AddEspTop(Name, Text, Left, Defualt, INFO)
+function AddEspTop(Name, Text, Left, INFO)
     local GroupBox = MakeGroupBox(Name,Left,"Visuals")
     GroupBox:AddToggle(Name,{
         Text = Text,
-        Default = Defualt,
+        Default = INFO["EspEnabled"],
         Tooltip = '',
         Callback = function(Value)
             if Value == true then 
@@ -113,9 +117,23 @@ function AddEspTop(Name, Text, Left, Defualt, INFO)
             end
         end
     })
+    return INFO
 end
 
 function initializeVisuals()
-    AddEspTop("AHHH","wywd",true, false, {["EspText"]="DAM", ["EspColor"] = Color3.fromRGB(255,255,255)})
+    local BallonEsp = AddEspTop("BallonEsp","BallonEsp",true,{["EspText"]="Ballon", ["EspColor"] = Color3.fromRGB(255,0,255), ["EspEnabled"] = false })
+
+    spawn(function()
+        while wait(0.5) do
+            for x,i in pairs(game.Workspace:GetDescendants()) do 
+                -- BALLON ESP
+                if i.Name == "CommonBalloon" or i.Name == "ExplodingBalloon" or i.Name == "MysteryBalloon" or i.Name == "RareBalloon" or i.Name == "SuperRareBalloon" then 
+                    Function:CreateEsp(i,BallonEsp)
+                end
+            end
+        end
+    end)
+
 end
 
+initializeVisuals()
