@@ -75,6 +75,7 @@ local Tabs = {
     Main = Window:AddTab('Main'),
     Server = Window:AddTab('Server'),
     Visuals = Window:AddTab('Visuals'),
+    ["Other"] = Window:AddTab('Settings'),
 }
 
 
@@ -135,5 +136,9 @@ function initializeVisuals()
     end)
 
 end
+
+local linoraSettings = Tabs.Other:AddLeftGroupbox("linoraSettings")
+linoraSettings:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu keybind' })
+Library.ToggleKeybind = Options.MenuKeybind
 
 initializeVisuals()
